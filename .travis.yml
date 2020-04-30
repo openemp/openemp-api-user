@@ -1,3 +1,5 @@
 language: java
 jdk:
   - oraclejdk11
+env:
+  - spring_profiles_active=dev
