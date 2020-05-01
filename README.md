@@ -18,6 +18,7 @@ To build the user API run the following:
 ```shell script
 git clone https://github.com/openemp/openemp-api-user
 cd openemp-api-user
+export spring_profiles_active=dev
 mvn clean install
 ```
 
