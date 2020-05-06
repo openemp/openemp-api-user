@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.management.InstanceAlreadyExistsException;
 
+/**
+ * User controller.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping(Constant.USER_ENDPOINT)
@@ -45,16 +48,35 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Gets user by username.
+     *
+     * @param username the username
+     * @return the user by username
+     */
     @GetMapping("/{username}")
     public User getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
 
+    /**
+     * Save user user.
+     *
+     * @param user the user
+     * @return the user
+     * @throws InstanceAlreadyExistsException the instance already exists exception
+     */
     @PostMapping("/signup")
     public User saveUser(@RequestBody User user) throws InstanceAlreadyExistsException {
         return userService.saveUser(user);
     }
 
+    /**
+     * Authenticate jwt response.
+     *
+     * @param authenticationRequest the authentication request
+     * @return the jwt response
+     */
     @PostMapping("/authenticate")
     public JwtResponse authenticate(@RequestBody JwtRequest authenticationRequest) {
 
@@ -68,6 +90,12 @@ public class UserController {
         return new JwtResponse(token);
     }
 
+    /**
+     * Delete mapping user.
+     *
+     * @param user the user
+     * @return the user
+     */
     @DeleteMapping
     public User deleteMapping(@RequestBody User user) {
         return userService.deleteUser(user);

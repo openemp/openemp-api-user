@@ -7,12 +7,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * Attribute type service.
+ */
 @Service
 public class AttributeTypeService {
 
 	@Autowired
 	private AttributeTypeRepository attributeTypeRepository;
 
+	/**
+	 * Save attribute type attribute type.
+	 *
+	 * @param attributeType the attribute type
+	 * @return the attribute type
+	 */
 	public AttributeType saveAttributeType(AttributeType attributeType) {
 		return attributeTypeRepository.save(attributeType);
 	}
@@ -21,6 +30,11 @@ public class AttributeTypeService {
 		return (Set<AttributeType>) attributeTypeRepository.findAll();
 	}
 
+	/**
+	 * Delete attribute type.
+	 *
+	 * @param attributeType the attribute type
+	 */
 	public void deleteAttributeType(AttributeType attributeType) {
 		attributeTypeRepository.delete(attributeType);
 	}

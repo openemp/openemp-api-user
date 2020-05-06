@@ -16,7 +16,9 @@ import java.util.Set;
 
 import static org.openemp.api.user.util.Constant.USER_ATTRIBUTE_DOMAIN;
 
-
+/**
+ * User attribute controller.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping(USER_ATTRIBUTE_DOMAIN)
@@ -25,13 +27,25 @@ public class UserAttributeController {
     @Autowired
     private UserAttributeService userAttributeService;
 
-    @GetMapping("/{username}")
+	/**
+	 * Gets attributes by username.
+	 *
+	 * @param username the username
+	 * @return the attributes by username
+	 */
+	@GetMapping("/{username}")
     public Set<UserAttribute> getAttributesByUsername(@PathVariable String username) {
 
         return userAttributeService.getUserAttributes(username);
     }
 
-    @PostMapping
+	/**
+	 * Save user attribute.
+	 *
+	 * @param userAttribute the user attribute
+	 * @return the user attribute
+	 */
+	@PostMapping
     public UserAttribute save(@RequestBody UserAttribute userAttribute) {
         return userAttributeService.save(userAttribute);
     }

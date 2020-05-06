@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 
+/**
+ * Attribute type Model.
+ */
 @Entity
 @Getter
 @Setter

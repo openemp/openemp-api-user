@@ -15,6 +15,9 @@ import java.util.function.Function;
 
 import static org.openemp.api.user.util.Constant.JWT_TOKEN_VALIDITY;
 
+/**
+ * Jwt token util.
+ */
 @Component
 public class JwtTokenUtil implements Serializable {
 
@@ -24,23 +27,41 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String JWT_KEY;
 
-
-    //retrieve username from jwt token
+	/**
+	 * Gets username from token.
+	 *
+	 * @param token the token
+	 * @return the username from token
+	 */
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    //retrieve expiration date from jwt token
+	/**
+	 * Gets expiration date from jwt token.
+	 *
+	 * @param token the token
+	 * @return the expiration date from token
+	 */
+	//
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+	/**
+	 * Gets claim from token.
+	 *
+	 * @param <T>            the type parameter
+	 * @param token          the token
+	 * @param claimsResolver the claims resolver
+	 * @return the claim from token
+	 */
+	public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
 
-    //for retrieveing any information from token we will need the secret key
+    //for retrieving any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(JWT_KEY).parseClaimsJws(token).getBody();
     }
@@ -51,7 +72,13 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
-    //generate token for user
+	/**
+	 * Generate token string.
+	 *
+	 * @param userDetails the user details
+	 * @return the string
+	 */
+	//generate token for user
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUsername());
@@ -69,7 +96,13 @@ public class JwtTokenUtil implements Serializable {
                 .signWith(SignatureAlgorithm.HS512, JWT_KEY).compact();
     }
 
-    //validate token
+	/**
+	 * Validate token.
+	 *
+	 * @param token       the token
+	 * @param userDetails the user details
+	 * @return the boolean
+	 */
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

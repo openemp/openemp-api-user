@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * User attribute service.
+ */
 @Service
 public class UserAttributeService {
 
@@ -17,18 +20,30 @@ public class UserAttributeService {
     @Autowired
     private UserService userService;
 
-    public UserAttributeService(UserAttributeRepository userAttributeRepository) {
+	public UserAttributeService(UserAttributeRepository userAttributeRepository) {
         this.userAttributeRepository = userAttributeRepository;
     }
 
-    public Set<UserAttribute> getUserAttributes(String username) {
+	/**
+	 * Gets user attributes.
+	 *
+	 * @param username the username
+	 * @return the user attributes
+	 */
+	public Set<UserAttribute> getUserAttributes(String username) {
 
         User user = userService.getUserByUsername(username);
 
         return userAttributeRepository.getAllByUser(user);
     }
 
-    public UserAttribute save(UserAttribute userAttribute) {
+	/**
+	 * Save user attribute.
+	 *
+	 * @param userAttribute the user attribute
+	 * @return the saved user attribute
+	 */
+	public UserAttribute save(UserAttribute userAttribute) {
         return userAttributeRepository.save(userAttribute);
     }
 }

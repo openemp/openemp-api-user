@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * User attribute model.
+ */
 @Entity
 @Table(name = "user_attributes")
 @Getter

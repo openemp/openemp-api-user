@@ -18,6 +18,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Base entity.
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
