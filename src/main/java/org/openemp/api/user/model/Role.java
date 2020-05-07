@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Role model.
+ */
 @Entity
 @Getter
 @Setter

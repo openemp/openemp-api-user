@@ -20,6 +20,9 @@ import static org.openemp.api.user.util.Constant.AUTH_LOGIN_URL;
 import static org.openemp.api.user.util.Constant.READ_USERS;
 import static org.openemp.api.user.util.Constant.USER_ENDPOINT;
 
+/**
+ * Web security config.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -35,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
-    @Autowired
+	@Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(empUserDetailsService).passwordEncoder(passwordEncoder());
     }

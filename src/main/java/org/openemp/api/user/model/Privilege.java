@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 
+/**
+ * Privilege model.
+ */
 @Entity
 @Setter
 @Getter

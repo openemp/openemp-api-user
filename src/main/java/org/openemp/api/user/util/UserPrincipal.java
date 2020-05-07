@@ -1,5 +1,8 @@
 package org.openemp.api.user.util;
 
+/**
+ * The type User principal.
+ */
 public class UserPrincipal  { //implements UserDetails
 //
 //    private static final long serialVersionUID = 1L;

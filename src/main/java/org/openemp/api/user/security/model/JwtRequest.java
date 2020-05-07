@@ -2,6 +2,9 @@ package org.openemp.api.user.security.model;
 
 import java.io.Serializable;
 
+/**
+ * The type Jwt request.
+ */
 public class JwtRequest implements Serializable {
 
     private static final long serialVersionUID = 5926468583005150707L;
@@ -14,6 +17,12 @@ public class JwtRequest implements Serializable {
 
     }
 
+    /**
+     * Instantiates a new Jwt request.
+     *
+     * @param username the username
+     * @param password the password
+     */
     public JwtRequest(String username, String password) {
         this.setUsername(username);
         this.setPassword(password);

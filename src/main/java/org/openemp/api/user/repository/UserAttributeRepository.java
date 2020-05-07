@@ -7,8 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
+/**
+ * User attribute repository.
+ */
 @Repository
 public interface UserAttributeRepository extends PagingAndSortingRepository<UserAttribute, Long> {
 
-    Set<UserAttribute> getAllByUser(User user);
+	/**
+	 * Gets all by user.
+	 *
+	 * @param user the user
+	 * @return a set of user attributes
+	 */
+	Set<UserAttribute> getAllByUser(User user);
 }

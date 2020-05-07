@@ -1,6 +1,8 @@
 package org.openemp.api.user.util;
 
-
+/**
+ * User Service Constants.
+ */
 public class Constant {
 
     // JWT Constants

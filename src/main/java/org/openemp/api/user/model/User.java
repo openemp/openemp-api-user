@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * User model.
+ */
 @Entity
 @Table(name = "users")
 @Getter

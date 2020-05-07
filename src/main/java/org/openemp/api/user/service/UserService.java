@@ -12,6 +12,9 @@ import javax.management.InstanceAlreadyExistsException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type User service.
+ */
 @Service
 public class UserService {
 
@@ -19,17 +22,30 @@ public class UserService {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
-    public UserService(UserRepository userRepository) {
+	public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User getUserByUsername(String username) {
+	/**
+	 * Gets user by username.
+	 *
+	 * @param username the username
+	 * @return the user
+	 */
+	public User getUserByUsername(String username) {
         User user = userRepository.getByUsernameAndRetiredFalse(username);
         if (user != null) return user;
         throw new UserNotFoundException(username);
     }
 
-    public User saveUser(User user) throws InstanceAlreadyExistsException {
+	/**
+	 * Save user user.
+	 *
+	 * @param user the user
+	 * @return the saved user
+	 * @throws InstanceAlreadyExistsException the instance already exists exception
+	 */
+	public User saveUser(User user) throws InstanceAlreadyExistsException {
 
         User userExist = userRepository.getByUsernameAndRetiredFalse(user.getUsername());
         if (userExist != null) throw new InstanceAlreadyExistsException();
@@ -46,7 +62,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User deleteUser(User user) {
+	/**
+	 * Delete user user.
+	 *
+	 * @param user the user
+	 * @return the user
+	 */
+	public User deleteUser(User user) {
         user.setRetired(true);
         return userRepository.save(user);
     }
