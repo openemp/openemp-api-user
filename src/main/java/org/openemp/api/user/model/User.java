@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
  * User model.
  */
@@ -21,7 +22,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
-public class User extends BaseEntity {
+public class  User extends BaseEntity {
 
     @Column(unique = true)
     private String username;
@@ -35,8 +36,10 @@ public class User extends BaseEntity {
     private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Role> role;
+            fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Profile> profiles = new HashSet<>();
+
+    private String type;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "user")

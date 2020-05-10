@@ -27,6 +27,7 @@ public class UserAttribute extends BaseEntity{
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "name")
     private AttributeType attributeType;
 
 }

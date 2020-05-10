@@ -17,7 +17,7 @@ public class AttributeTypeService {
 	private AttributeTypeRepository attributeTypeRepository;
 
 	/**
-	 * Save attribute type attribute type.
+	 * Save attribute type.
 	 *
 	 * @param attributeType the attribute type
 	 * @return the attribute type
@@ -39,6 +39,12 @@ public class AttributeTypeService {
 		attributeTypeRepository.delete(attributeType);
 	}
 
+	/**
+	 * Get attribute type.
+	 *
+	 * @param attributeTypeName the attribute type name
+	 * @return AttributeType if exist otherwise null
+	 */
 	public AttributeType getAttributeType(String attributeTypeName) {
 		return attributeTypeRepository.findByName(attributeTypeName).orElse(null);
 	}

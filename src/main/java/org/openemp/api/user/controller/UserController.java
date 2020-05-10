@@ -35,7 +35,6 @@ import javax.management.InstanceAlreadyExistsException;
 @RequestMapping(Constant.USER_ENDPOINT)
 public class UserController {
 
-
     private final UserService userService;
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -60,18 +59,6 @@ public class UserController {
     }
 
     /**
-     * Save user user.
-     *
-     * @param user the user
-     * @return the user
-     * @throws InstanceAlreadyExistsException the instance already exists exception
-     */
-    @PostMapping("/signup")
-    public User saveUser(@RequestBody User user) throws InstanceAlreadyExistsException {
-        return userService.saveUser(user);
-    }
-
-    /**
      * Authenticate jwt response.
      *
      * @param authenticationRequest the authentication request
@@ -88,6 +75,18 @@ public class UserController {
         String token = jwtTokenUtil.generateToken(userDetails);
 
         return new JwtResponse(token);
+    }
+
+    /**
+     * Save user user.
+     *
+     * @param user the user
+     * @return the user
+     * @throws InstanceAlreadyExistsException the instance already exists exception
+     */
+    @PostMapping
+    public User saveUser(@RequestBody User user) throws InstanceAlreadyExistsException {
+        return userService.saveUser(user);
     }
 
     /**
