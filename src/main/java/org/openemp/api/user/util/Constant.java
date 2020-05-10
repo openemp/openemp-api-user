@@ -6,7 +6,7 @@ package org.openemp.api.user.util;
 public class Constant {
 
     // JWT Constants
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    public static final long    JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
     // REST API Constants
 
@@ -25,9 +25,7 @@ public class Constant {
 
     // Roles and Authorities
 
-    public static final String ADMIN_ROLE = "adminRole";
-    public static final String USER_ROLE = "userRole";
-    public static final String READ_USERS = "readUsers";
+    public static final String ADMIN_ROLE = "ADMIN";
 
 
 

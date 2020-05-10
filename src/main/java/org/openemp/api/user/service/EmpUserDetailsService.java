@@ -1,6 +1,7 @@
 package org.openemp.api.user.service;
 
 import org.openemp.api.user.exception.UserNotFoundException;
+import org.openemp.api.user.model.Profile;
 import org.openemp.api.user.model.User;
 import org.openemp.api.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class EmpUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UserNotFoundException(username);
         }
-        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
+        authorities.add(new SimpleGrantedAuthority(user.getType()));
+
+        if (!user.getProfiles().isEmpty())
+            ((Profile[]) user.getProfiles().toArray())[0].getRole().getPrivileges().forEach(privilege -> {
+                authorities.add(new SimpleGrantedAuthority(privilege.getName()));
+            });
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 authorities);
     }
