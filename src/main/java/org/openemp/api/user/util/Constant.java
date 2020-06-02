@@ -11,15 +11,16 @@ public class Constant {
     // REST API Constants
 
     public static final String API_VERSION = "/v1";
+    public static final String API = "/api";
 
     public static final String USER_DOMAIN = "/users";
     public static final String PROFILE_DOMAIN = "/profiles";
     public static final String USER_ATTRIBUTE_DOMAIN = "/attributes";
     public static final String ATTRIBUTE_TYPE_DOMAIN = "/attributetypes";
 
-    public static final String USER_ENDPOINT = API_VERSION + USER_DOMAIN;
-    public static final String PROFILE_ENDPOINT = API_VERSION + PROFILE_DOMAIN;
-    public static final String ATTRIBUTE_TYPE_ENDPOINT = API_VERSION + ATTRIBUTE_TYPE_DOMAIN;
+    public static final String USER_ENDPOINT = API + API_VERSION + USER_DOMAIN;
+    public static final String PROFILE_ENDPOINT = API + API_VERSION + PROFILE_DOMAIN;
+    public static final String ATTRIBUTE_TYPE_ENDPOINT = API + API_VERSION + ATTRIBUTE_TYPE_DOMAIN;
 
     public static final String AUTH_LOGIN_URL = USER_ENDPOINT + "/authenticate";
 
