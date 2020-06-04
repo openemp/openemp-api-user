@@ -18,8 +18,10 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class UserAttribute extends BaseEntity{
+	
+	private static final long serialVersionUID = 954510045293626631L;
 
-    private String value;
+	private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

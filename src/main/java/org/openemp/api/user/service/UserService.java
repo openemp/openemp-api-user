@@ -1,16 +1,17 @@
 package org.openemp.api.user.service;
 
-import org.openemp.api.user.model.User;
-import org.openemp.api.user.repository.UserRepository;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.management.InstanceAlreadyExistsException;
+
 import org.openemp.api.user.exception.UserNotFoundException;
+import org.openemp.api.user.model.User;
 import org.openemp.api.user.model.UserAttribute;
+import org.openemp.api.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.management.InstanceAlreadyExistsException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The type User service.
@@ -19,6 +20,7 @@ import java.util.Set;
 public class UserService {
 
     private final UserRepository userRepository;
+    
     @Autowired
     private PasswordEncoder bcryptEncoder;
 

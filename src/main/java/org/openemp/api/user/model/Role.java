@@ -1,15 +1,12 @@
 package org.openemp.api.user.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.*;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Role model.
@@ -19,10 +16,20 @@ import java.util.Set;
 @Setter
 public class Role extends BaseEntity {
 
-    private String name;
+	private static final long serialVersionUID = -6132338183111628177L;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+	private String name;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "roles_privileges", 
+        joinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(
+          name = "privilege_id", referencedColumnName = "id"))
     private Set<Privilege> privileges = new HashSet<>();
+    
+    @ManyToMany(mappedBy = "roles")
+    private Set<Profile> profiles = new HashSet<>();
 
 }

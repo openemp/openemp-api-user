@@ -5,12 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +18,8 @@ import java.util.Set;
 @Getter
 @Setter
 public class  User extends BaseEntity {
+	
+	private static final long serialVersionUID = 9017827961351102792L;
 
     @Column(unique = true)
     private String username;
