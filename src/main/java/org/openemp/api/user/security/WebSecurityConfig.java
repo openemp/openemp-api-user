@@ -1,5 +1,8 @@
 package org.openemp.api.user.security;
 
+import static org.openemp.api.user.util.Constant.AUTH_LOGIN_URL;
+import static org.openemp.api.user.util.Constant.USER_ENDPOINT;
+
 import org.openemp.api.user.service.EmpUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,10 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import static org.openemp.api.user.util.Constant.ADMIN_ROLE;
-import static org.openemp.api.user.util.Constant.AUTH_LOGIN_URL;
-import static org.openemp.api.user.util.Constant.USER_ENDPOINT;
 
 /**
  * Web security config.

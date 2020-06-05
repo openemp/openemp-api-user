@@ -6,14 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * The type Openemp user api application tests.
  */
-@SpringBootTest
+@SpringBootTest(classes = OpenempUserApiApplication.class)
 class OpenempUserApiApplicationTests {
 
-	/**
-	 * Context loads.
-	 */
 	@Test
-    void contextLoads() {
-    }
-
+	void contextLoads() {
+	}
 }

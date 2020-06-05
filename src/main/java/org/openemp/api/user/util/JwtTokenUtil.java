@@ -1,19 +1,22 @@
 package org.openemp.api.user.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import static org.openemp.api.user.util.Constant.JWT_TOKEN_VALIDITY;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static org.openemp.api.user.util.Constant.JWT_TOKEN_VALIDITY;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
  * Jwt token util.
@@ -26,6 +29,8 @@ public class JwtTokenUtil implements Serializable {
 
     @Value("${jwt.secret}")
     private String JWT_KEY;
+    
+    private static final String AUTHORITIES_KEY = "auth";
 
 	/**
 	 * Gets username from token.
@@ -80,7 +85,12 @@ public class JwtTokenUtil implements Serializable {
 	 */
 	//generate token for user
     public String generateToken(UserDetails userDetails) {
+    	String authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.collect(Collectors.joining(","));
+
         Map<String, Object> claims = new HashMap<>();
+        claims.put(AUTHORITIES_KEY, authorities);
+        
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
