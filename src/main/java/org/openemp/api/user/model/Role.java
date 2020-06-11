@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,7 @@ public class Role extends BaseEntity {
 	private Set<Privilege> privileges = new HashSet<>();
 
 	@ManyToMany(mappedBy = "roles")
+	@JsonBackReference
 	private Set<Profile> profiles = new HashSet<>();
 
 }

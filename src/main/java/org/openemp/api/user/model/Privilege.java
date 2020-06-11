@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ public class Privilege extends BaseEntity{
 	private String name;
 	
 	@ManyToMany(mappedBy = "privileges")
+	@JsonBackReference
     private Set<Role> roles = new HashSet<>();
 
 }
