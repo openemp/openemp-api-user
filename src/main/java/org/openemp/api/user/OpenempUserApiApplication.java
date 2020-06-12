@@ -17,7 +17,7 @@ public class OpenempUserApiApplication {
 	 * @param args the input arguments
 	 */
 	public static void main(String[] args) {
-        SpringApplication.run(OpenempUserApiApplication.class, args);
-    }
+		SpringApplication.run(OpenempUserApiApplication.class, args);
+	}
 
 }

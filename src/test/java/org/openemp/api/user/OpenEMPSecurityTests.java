@@ -1,6 +1,7 @@
 package org.openemp.api.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,6 +60,8 @@ public class OpenEMPSecurityTests {
 
 	private static final String APPLICATION_JSON_VALUE = "application/json";
 
+	private static final String LOCALHOST_9000 = "http://localhost:9000";
+
 	private MockMvc mockMvc;
 
 	@BeforeEach
@@ -97,6 +100,19 @@ public class OpenEMPSecurityTests {
 		assertThat(tokenWithProfiles.toString()).isNotEqualTo(tokenWithoutProfiles.toString());
 	}
 
+	@Test
+	public void testCorsConfig() throws Exception {
+
+		// Request authentication.
+		JwtRequest login = new JwtRequest();
+		login.setUsername("admin");
+		login.setPassword("P@$$w0rd");
+		login.setRememberMe(true);
+		mockMvc.perform(options(LOCALHOST_9000 + Constant.AUTH_LOGIN_URL).contentType(APPLICATION_JSON_VALUE)
+				.content(TestUtil.convertObjectToJsonBytes(login))).andExpect(status().isOk());
+
+	}
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testAuthorizeWithRememberMe() throws Exception {
@@ -107,23 +123,23 @@ public class OpenEMPSecurityTests {
 		// Generate a token with user name.
 		JwtResponse tokenWithRemeberme = new JwtResponse(
 				jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername("admin"), true));
-		
+
 		// Tokens not null.
 		assertThat(tokenWithoutRemeberme).isNotNull();
 		assertThat(tokenWithRemeberme).isNotNull();
-		
+
 		// Getting expiration dates from tokens.
 		Date expirationWithoutRememberme = jwtTokenUtil.getExpirationDateFromToken(tokenWithoutRemeberme.getToken());
 		Date expirationWithRememberme = jwtTokenUtil.getExpirationDateFromToken(tokenWithRemeberme.getToken());
-		
+
 		assertThat(expirationWithoutRememberme).isNotNull();
 		assertThat(expirationWithRememberme).isNotNull();
 		assertThat(expirationWithoutRememberme).isBefore(expirationWithRememberme);
 		assertThat(expirationWithRememberme).isAfter(expirationWithoutRememberme);
-		
+
 		// Check the 7 days for the token with the remember me option.
 		Date dateToTest = new Date(System.currentTimeMillis() + Constant.JWT_TOKEN_VALIDITY_WITH_REMEMBERME);
-		
+
 		assertThat(dateToTest.getDay()).isEqualTo(expirationWithRememberme.getDay());
 		assertThat(dateToTest.getMonth()).isEqualTo(expirationWithRememberme.getMonth());
 		assertThat(dateToTest.getYear()).isEqualTo(expirationWithRememberme.getYear());
