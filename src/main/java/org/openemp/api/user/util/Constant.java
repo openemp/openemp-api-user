@@ -5,6 +5,10 @@ package org.openemp.api.user.util;
  */
 public class Constant {
 
+	private Constant() {
+		throw new IllegalStateException("Constant class");
+	}
+
 	// JWT Constants
 	public static final long JWT_TOKEN_VALIDITY_WITHOUT_REMEMEBERME = 5 * 60 * 60 * 1000L;
 	public static final long JWT_TOKEN_VALIDITY_WITH_REMEMBERME = 7 * 24 * 60 * 60 * 1000L; // 7 days
@@ -13,6 +17,8 @@ public class Constant {
 
 	public static final String API_VERSION = "/v1";
 	public static final String API = "/api";
+
+	public static final String API_ALL = "/api/**";
 
 	public static final String USER_DOMAIN = "/users";
 	public static final String PROFILE_DOMAIN = "/profiles";
