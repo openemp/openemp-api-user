@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrivilegeService {
 
-	@Autowired
-	private PrivilegeRepository privilegeRepository;
+    @Autowired
+    private PrivilegeRepository privilegeRepository;
 
-	public Privilege savePrivilege(Privilege privilege) {
-		return privilegeRepository.save(privilege);
-	}
+    public Privilege savePrivilege(Privilege privilege) {
+        return privilegeRepository.save(privilege);
+    }
 
 }

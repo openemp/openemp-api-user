@@ -17,9 +17,9 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
-public class  User extends BaseEntity {
-	
-	private static final long serialVersionUID = 9017827961351102792L;
+public class User extends BaseEntity {
+
+    private static final long serialVersionUID = 9017827961351102792L;
 
     @Column(unique = true)
     private String username;
@@ -39,7 +39,7 @@ public class  User extends BaseEntity {
     private String type;
 
     @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, mappedBy = "user")
+            fetch = FetchType.EAGER, mappedBy = "user")
     private Set<UserAttribute> attributes = new HashSet<>();
 
 }

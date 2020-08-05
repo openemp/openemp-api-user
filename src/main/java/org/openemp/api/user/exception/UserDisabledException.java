@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * User disabled exception.
  */
 @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
-public class UserDisabledException extends RuntimeException{
-	
-	private static final long serialVersionUID = 6041862734673448645L;
+public class UserDisabledException extends RuntimeException {
 
-	public UserDisabledException() {
+    private static final long serialVersionUID = 6041862734673448645L;
+
+    public UserDisabledException() {
         super();
     }
 
-	public UserDisabledException(String username) {
+    public UserDisabledException(String username) {
         super("User " + username + "is Disabled");
     }
 }

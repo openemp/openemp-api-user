@@ -1,24 +1,15 @@
 package org.openemp.api.user.model;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Base entity.
@@ -28,10 +19,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class BaseEntity implements Serializable {
-	
-	private static final long serialVersionUID = 9017827961351732792L;
 
-	@Id
+    private static final long serialVersionUID = 9017827961351732792L;
+
+    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
