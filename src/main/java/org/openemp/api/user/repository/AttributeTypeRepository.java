@@ -10,11 +10,11 @@ import java.util.Optional;
  */
 public interface AttributeTypeRepository extends CrudRepository<AttributeType, Long> {
 
-	/**
-	 * Find by name (optional)
-	 *
-	 * @param name the attribute name
-	 * @return User (if found)
-	 */
-	Optional<AttributeType> findByName(String name);
+    /**
+     * Find by name (optional)
+     *
+     * @param name the attribute name
+     * @return User (if found)
+     */
+    Optional<AttributeType> findByName(String name);
 }

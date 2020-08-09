@@ -13,11 +13,11 @@ import java.util.Set;
 @Repository
 public interface UserAttributeRepository extends PagingAndSortingRepository<UserAttribute, Long> {
 
-	/**
-	 * Gets all by user.
-	 *
-	 * @param user the user
-	 * @return a set of user attributes
-	 */
-	Set<UserAttribute> getAllByUser(User user);
+    /**
+     * Gets all by user.
+     *
+     * @param user the user
+     * @return a set of user attributes
+     */
+    Set<UserAttribute> getAllByUser(User user);
 }

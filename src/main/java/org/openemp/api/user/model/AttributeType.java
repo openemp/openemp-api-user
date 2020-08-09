@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class AttributeType extends BaseEntity {
-	
-	private static final long serialVersionUID = 8000504521163574398L;
-	
-	private String name;
+
+    private static final long serialVersionUID = 8000504521163574398L;
+
+    private String name;
 }

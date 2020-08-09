@@ -11,37 +11,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProfileService {
 
-	private final ProfileRepository profileRepository;
+    private final ProfileRepository profileRepository;
 
-	public ProfileService(ProfileRepository profileRepository) {
-		this.profileRepository = profileRepository;
-	}
+    public ProfileService(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
 
-	/**
-	 * Gets profile.
-	 *
-	 * @param id the id
-	 * @return the profile
-	 */
-	public Profile getProfile(Long id) {
-		return profileRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
-	}
-	
-	/**
-	 * Save {@link Profile}.
-	 * @param profile the profile to save {@link Profile}.
-	 * @return the saved profile {@link Profile}.
-	 */
-	public Profile saveProfile(Profile profile) {
-		return profileRepository.save(profile);
-	}
-	
-	/**
-	 * Delete a profile.
-	 * @param profile the profile to delete.
-	 */
-	public void delete(Profile profile) {
-		profileRepository.delete(profile);
-	}
-	
+    /**
+     * Gets profile.
+     *
+     * @param id the id
+     * @return the profile
+     */
+    public Profile getProfile(Long id) {
+        return profileRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    /**
+     * Save {@link Profile}.
+     *
+     * @param profile the profile to save {@link Profile}.
+     * @return the saved profile {@link Profile}.
+     */
+    public Profile saveProfile(Profile profile) {
+        return profileRepository.save(profile);
+    }
+
+    /**
+     * Delete a profile.
+     *
+     * @param profile the profile to delete.
+     */
+    public void delete(Profile profile) {
+        profileRepository.delete(profile);
+    }
+
 }

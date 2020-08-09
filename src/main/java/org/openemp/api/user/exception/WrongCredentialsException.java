@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 public class WrongCredentialsException extends RuntimeException {
-	
-	private static final long serialVersionUID = -2958259497970846376L;
 
-	/**
-	 * Instantiates a new Wrong credentials exception.
-	 */
-	public WrongCredentialsException(){}
+    private static final long serialVersionUID = -2958259497970846376L;
+
+    /**
+     * Instantiates a new Wrong credentials exception.
+     */
+    public WrongCredentialsException() {
+    }
 
 }
