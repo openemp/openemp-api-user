@@ -1,11 +1,14 @@
 package org.openemp.api.user.util;
 
+import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 import org.openemp.api.user.model.User;
 import org.openemp.api.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +48,9 @@ public class JwtTokenUtil implements Serializable {
      * @return the username from token
      */
     public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
+        String sub = getClaimFromToken(token, Claims::getSubject);
+        Map object = new Gson().fromJson(sub, Map.class);
+        return object.get("username").toString();
     }
 
     /**

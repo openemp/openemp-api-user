@@ -9,7 +9,6 @@ all responses return JSON object, All requests must include a `content-type` of 
 
 * Java >= 11
 * maven >= 3
-* git
 * PostgreSQL (for production - Optional)
 ### Build
 
