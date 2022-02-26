@@ -27,12 +27,12 @@ public class UserAttributeService {
     /**
      * Gets user attributes.
      *
-     * @param username the username
+     * @param uuid the user UUID
      * @return the user attributes
      */
-    public Set<UserAttribute> getUserAttributes(String username) {
+    public Set<UserAttribute> getUserAttributes(String uuid) {
 
-        User user = userService.getUserByUuid(username);
+        User user = userService.getUserByUuid(uuid, Boolean.FALSE);
 
         return userAttributeRepository.getAllByUser(user);
     }

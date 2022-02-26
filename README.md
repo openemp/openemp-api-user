@@ -30,7 +30,7 @@ to start with dev environement:
 export spring_profiles_active=dev
 mvn spring-boot:run
 ```
-for more details on how to run user api please visit the documentation [here](https://docs.openemp.org)
+for more details on how to use `user api` please visit the documentation [here](https://docs.openemp.org)
 
 ### Features
 

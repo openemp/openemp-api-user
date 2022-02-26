@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.SneakyThrows;
 import net.minidev.json.JSONObject;
 import org.openemp.api.user.model.User;
 import org.openemp.api.user.service.UserService;
@@ -44,9 +45,21 @@ public class JwtTokenUtil implements Serializable {
      * @param token the token
      * @return the username from token
      */
-    public String getUsernameFromToken(String token) {
+    public String getSubjectFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
+
+    @SneakyThrows
+    public String getSubjectProperty(String property, String token) {
+        Claims claims = getAllClaimsFromToken(token);
+        Map <String, String> subject = (Map<String, String>) claims.get("sub");
+
+        String value = subject.get(property);
+
+
+        return value;
+    }
+
 
     /**
      * Gets expiration date from jwt token.
@@ -143,7 +156,7 @@ public class JwtTokenUtil implements Serializable {
      * @return the boolean
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
+        final String username = getSubjectProperty("username", token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
