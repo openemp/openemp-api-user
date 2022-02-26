@@ -15,7 +15,16 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
@@ -52,7 +61,7 @@ public class UserController {
      */
     @GetMapping("/{uuid}")
     public User getUserByUuid(@PathVariable String uuid) {
-        return userService.getUserByUuid(uuid);
+        return userService.getUserByUuid(uuid, Boolean.FALSE);
     }
 
     /**
@@ -62,12 +71,13 @@ public class UserController {
      */
     @GetMapping
     public List<User> getUsers(
-            @PathVariable("page") int page,
-            @PathVariable("size") int size,
-            @PathVariable("sortDir") String sortDir,
-            @PathVariable("sort") String sort
+            @RequestParam(name = "page", defaultValue = "1") String page,
+            @RequestParam(name = "size", defaultValue = "15") String size,
+            @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
+            @RequestParam(name = "sort", defaultValue = "asc") String sort,
+            @RequestParam(name = "deleted", defaultValue = "0") Integer deleted
     ) {
-        List<User> posts = userService.getUsersList(page, size, sortDir, sort);
+        List<User> posts = userService.getUsersList(Integer.parseInt(page), Integer.parseInt(size), sortDir, sort, deleted);
         return new ArrayList<>(posts);
     }
 
@@ -80,7 +90,17 @@ public class UserController {
     @PostMapping("/authenticate")
     public JwtResponse authenticate(@RequestBody JwtRequest authenticationRequest) {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        String username = authenticationRequest.getUsername();
+        String password = authenticationRequest.getPassword();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new UserDisabledException(username);
+        } catch (BadCredentialsException e) {
+            throw new WrongCredentialsException();
+        }
+
+//        authenticate(, );
 
         UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
@@ -98,7 +118,9 @@ public class UserController {
      * @throws InstanceAlreadyExistsException the instance already exists exception
      */
     @PostMapping
-    public User saveUser(@RequestBody User user) throws InstanceAlreadyExistsException {
+    public User saveUser(@RequestBody User user, @RequestHeader(value = "Authorization") String token) throws InstanceAlreadyExistsException {
+        String userType = jwtTokenUtil.getSubjectProperty("type", token.split(" ")[1]);
+
         return userService.saveUser(user);
     }
 
@@ -113,13 +135,4 @@ public class UserController {
         return userService.deleteUser(user);
     }
 
-    private void authenticate(String username, String password) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new UserDisabledException(username);
-        } catch (BadCredentialsException e) {
-            throw new WrongCredentialsException();
-        }
-    }
 }

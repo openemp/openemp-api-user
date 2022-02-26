@@ -27,7 +27,7 @@ public class EmpUserDetailsService implements UserDetailsService {
 
         Set<GrantedAuthority> authorities = new HashSet<>();
 
-        User user = userRepository.getByUsernameAndRetiredFalse(username);
+        User user = userRepository.getByUsernameAndDeletedFalse(username);
         if (user == null) {
             throw new UserNotFoundException(username);
         }

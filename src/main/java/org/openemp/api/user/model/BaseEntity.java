@@ -2,7 +2,9 @@ package org.openemp.api.user.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -33,12 +35,24 @@ public abstract class BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
-    private Date createdAt;
+    private Date createdAt = new Date();
+
+    @Column(name = "createdBy", nullable = false, updatable = false)
+    @CreatedBy
+    private UUID createdBy;
+
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     @LastModifiedDate
     private Date updatedAt;
-    private Boolean retired = false;
+
+
+    @Column(name = "updatedBy")
+    @LastModifiedBy
+    private Integer updatedBy;
+
+
+    private Boolean deleted = false;
 
 }

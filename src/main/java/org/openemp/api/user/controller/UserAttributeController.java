@@ -4,18 +4,24 @@ package org.openemp.api.user.controller;
 import org.openemp.api.user.model.UserAttribute;
 import org.openemp.api.user.service.UserAttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
-import static org.openemp.api.user.util.Constant.USER_ATTRIBUTE_DOMAIN;
+import static org.openemp.api.user.util.Constant.USER_ATTRIBUTE_ENDPOINT;
 
 /**
  * User attribute controller.
  */
 @RestController
 @CrossOrigin
-@RequestMapping(USER_ATTRIBUTE_DOMAIN)
+@RequestMapping(USER_ATTRIBUTE_ENDPOINT)
 public class UserAttributeController {
 
     @Autowired
@@ -24,13 +30,13 @@ public class UserAttributeController {
     /**
      * Gets attributes by username.
      *
-     * @param username the username
-     * @return the attributes by username
+     * @param uuid the UUID
+     * @return the attributes by User's UUID
      */
-    @GetMapping("/{username}")
-    public Set<UserAttribute> getAttributesByUsername(@PathVariable String username) {
+    @GetMapping("/{uuid}")
+    public Set<UserAttribute> getAttributesByUuid(@PathVariable String uuid) {
 
-        return userAttributeService.getUserAttributes(username);
+        return userAttributeService.getUserAttributes(uuid);
     }
 
     /**

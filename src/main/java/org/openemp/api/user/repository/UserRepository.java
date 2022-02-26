@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -17,20 +18,38 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
     @Override
     Page<User> findAll(Pageable pageable);
 
+
+
+    /**
+     * Gets by username.
+     *
+     * @param deleted if the user is deleted
+     * @return Users
+     */
+    List<User> getByDeleted(Boolean deleted);
+
     /**
      * Gets by username.
      *
      * @param username the username
      * @return User (if not retired)
      */
-    User getByUsernameAndRetiredFalse(String username);
+    User getByUsernameAndDeletedFalse(String username);
 
     /**
-     * Gets by username.
+     * Gets by uuid.
      *
      * @param uuid the user uuid
      * @return User (if not retired)
      */
-    User getByUuidAndRetiredFalse(UUID uuid);
+    User getByUuidAndDeletedFalse(UUID uuid);
+
+    /**
+     * Gets by uuid.
+     *
+     * @param uuid the user uuid
+     * @return User
+     */
+    User getByUuid(UUID uuid);
 
 }

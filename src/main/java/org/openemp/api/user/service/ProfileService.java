@@ -1,9 +1,10 @@
 package org.openemp.api.user.service;
 
-import org.openemp.api.user.exception.ResourceNotFoundException;
 import org.openemp.api.user.model.Profile;
 import org.openemp.api.user.repository.ProfileRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  * Profile service.
@@ -20,11 +21,11 @@ public class ProfileService {
     /**
      * Gets profile.
      *
-     * @param id the id
+     * @param uuid the id
      * @return the profile
      */
-    public Profile getProfile(Long id) {
-        return profileRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+    public Profile getProfile(UUID uuid) {
+        return profileRepository.getByUuidAndDeletedFalse(uuid);
     }
 
     /**

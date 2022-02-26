@@ -5,6 +5,8 @@ import org.openemp.api.user.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 import static org.openemp.api.user.util.Constant.PROFILE_ENDPOINT;
 
 /**
@@ -21,11 +23,13 @@ public class EmpProfileController {
     /**
      * Gets profile by uuid.
      *
-     * @param id the id
+     * @param uuid the uuid
      * @return the profile by uuid
      */
     @GetMapping("/{id}")
-    public Profile getProfileByUuid(@PathVariable Long id) {
-        return profileService.getProfile(id);
+    public Profile getProfileByUuid(@PathVariable UUID uuid) {
+        return profileService.getProfile(uuid);
     }
+
+
 }

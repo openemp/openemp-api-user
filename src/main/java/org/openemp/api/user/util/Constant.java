@@ -27,11 +27,17 @@ public class Constant {
     public static final String USER_ENDPOINT = API + API_VERSION + USER_DOMAIN;
     public static final String PROFILE_ENDPOINT = API + API_VERSION + PROFILE_DOMAIN;
     public static final String ATTRIBUTE_TYPE_ENDPOINT = API + API_VERSION + ATTRIBUTE_TYPE_DOMAIN;
+    public static final String USER_ATTRIBUTE_ENDPOINT = API + API_VERSION + USER_ATTRIBUTE_DOMAIN;
 
     public static final String AUTH_LOGIN_URL = USER_ENDPOINT + "/authenticate";
 
     // Roles and Authorities
 
     public static final String ADMIN_ROLE = "ADMIN";
+
+    // Demo Data
+
+    public static final String ADMIN_USER_UUID = "ef84bd88-15bd-4b71-916c-689523f56fff";
+    public static final String ADMIN_PROFILE_UUID = "790c486c-627e-4e16-a16f-28dfa82cc13b";
 
 }

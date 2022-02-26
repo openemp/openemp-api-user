@@ -15,7 +15,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.openemp.api.user.util.Constant.ADMIN_PROFILE_UUID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -79,12 +82,12 @@ public class OpenEMPSecurityTests {
                         .content(TestUtil.convertObjectToJsonBytes(login)))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
-        // Token is not exists.
+        // Token does not exists.
         assertThat(loginToken).isNotNull();
         assertThat(loginToken).contains("token");
 
         // Remove profiles.
-        profileService.delete(profileService.getProfile(1L));
+        profileService.delete(profileService.getProfile(UUID.fromString(ADMIN_PROFILE_UUID)));
 
         // Generate a token with user name.
         JwtResponse tokenWithoutProfiles = new JwtResponse(
