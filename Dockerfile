@@ -1,9 +1,10 @@
 FROM tomcat:jre11-temurin
 
-LABEL maintainer="support@openemp.org"
-ARG VERSION 1.0.0-SNAPSHOT
+MAINTAINER openemp
 
-COPY target/user-$VERSION.war /usr/local/tomcat/webapps/
+ARG VERSION=1.0.0-SNAPSHOT
+
+COPY target/user-$VERSION.war /usr/local/tomcat/webapps/app.war
 EXPOSE 8081
 
-CMD ["catalina.sh", "run"]
+CMD ["java", "-jar", "/usr/local/tomcat/webapps/app.war"]
