@@ -34,8 +34,8 @@ public class EmpUserDetailsService implements UserDetailsService {
 
         authorities.add(new SimpleGrantedAuthority(user.getType()));
 
-        user.getProfiles().stream().forEach(p -> {
-            p.getRoles().stream().forEach(r -> {
+        user.getProfiles().forEach(p -> {
+            p.getRoles().forEach(r -> {
                 r.getPrivileges().stream().map(pr -> new SimpleGrantedAuthority(pr.getName()))
                         .forEach(authorities::add);
             });

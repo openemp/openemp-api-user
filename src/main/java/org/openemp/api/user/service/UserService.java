@@ -49,7 +49,6 @@ public class UserService {
             posts = userRepository.getByDeleted(true);
 
         return posts;
-
     }
 
     /**
