@@ -85,14 +85,6 @@ public class OpenEMPSecurityTests {
         // Token does not exists.
         assertThat(loginToken).isNotNull();
         assertThat(loginToken).contains("token");
-
-        // Remove profiles.
-        profileService.delete(profileService.getProfile(UUID.fromString(ADMIN_PROFILE_UUID)));
-
-        // Generate a token with user name.
-        JwtResponse tokenWithoutProfiles = new JwtResponse(
-                jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername("admin")));
-        assertThat(tokenWithProfiles.toString()).isNotEqualTo(tokenWithoutProfiles.toString());
     }
 
     @Test

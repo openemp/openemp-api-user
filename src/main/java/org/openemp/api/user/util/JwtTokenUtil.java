@@ -7,7 +7,12 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.SneakyThrows;
 import net.minidev.json.JSONObject;
+
+import org.openemp.api.user.model.Privilege;
+import org.openemp.api.user.model.Profile;
+import org.openemp.api.user.model.Role;
 import org.openemp.api.user.model.User;
+import org.openemp.api.user.service.ProfileService;
 import org.openemp.api.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,8 +25,10 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 
 /**
  * Jwt token util.
@@ -38,6 +45,9 @@ public class JwtTokenUtil implements Serializable {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProfileService profileService;
 
     /**
      * Gets username from token.
@@ -108,6 +118,38 @@ public class JwtTokenUtil implements Serializable {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put(AUTHORITIES_KEY, authorities);
+
+        Date expiration = new Date(new Date().getTime() + Constant.JWT_TOKEN_VALIDITY);
+
+        return doGenerateToken(claims, userDetails.getUsername(), expiration);
+    }
+
+
+    /**
+     * Generate token for profile.
+     *
+     * @param userDetails the profile details
+     * @return the jwt string
+     */
+    public String generateProfileToken(UserDetails userDetails, String uuid) {
+        String authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        Profile profile = profileService.getProfile(UUID.fromString(uuid));
+        
+        if (userDetails.getUsername() != profile.getUser().getUsername()) {
+            return "";
+        } 
+
+        String privs = "";
+        for (Role role : profile.getRoles()) {
+            for (Privilege privilege : role.getPrivileges()) {
+                privs = String.join(",", privilege.getName(), privs);
+            }
+        }
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(AUTHORITIES_KEY, String.join(",", authorities, privs));
 
         Date expiration = new Date(new Date().getTime() + Constant.JWT_TOKEN_VALIDITY);
 

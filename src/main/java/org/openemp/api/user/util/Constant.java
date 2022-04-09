@@ -10,7 +10,7 @@ public class Constant {
     }
 
     // JWT Constants
-    public static final long JWT_TOKEN_VALIDITY = 15 * 60 * 1000L; // 15 min
+    public static final long JWT_TOKEN_VALIDITY = 120 * 60 * 1000L; // 2 hours
 
     // REST API Constants
 
