@@ -34,13 +34,6 @@ public class EmpUserDetailsService implements UserDetailsService {
 
         authorities.add(new SimpleGrantedAuthority(user.getType()));
 
-        // user.getProfiles().forEach(p -> {
-        //     p.getRoles().forEach(r -> {
-        //         r.getPrivileges().stream().map(pr -> new SimpleGrantedAuthority(pr.getName()))
-        //                 .forEach(authorities::add);
-        //     });
-        // });
-
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 authorities);
     }

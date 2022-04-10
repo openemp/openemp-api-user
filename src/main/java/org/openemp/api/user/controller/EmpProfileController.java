@@ -31,9 +31,8 @@ import static org.openemp.api.user.util.Constant.PROFILE_ENDPOINT;
 public class EmpProfileController {
 
     private final EmpUserDetailsService userDetailsService;
-    private JwtTokenUtil jwtTokenUtils;
 
-    
+    private final JwtTokenUtil jwtTokenUtils;
 
     @Autowired
     private ProfileService profileService;
@@ -49,7 +48,7 @@ public class EmpProfileController {
      * @param uuid the uuid
      * @return the profile by uuid
      */
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     public Profile getProfileByUuid(@PathVariable UUID uuid) {
         return profileService.getProfile(uuid);
     }
