@@ -19,7 +19,7 @@ public class Profile extends BaseEntity {
 
     private static final long serialVersionUID = 6290907861094618128L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
